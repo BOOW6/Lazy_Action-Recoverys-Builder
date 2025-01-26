@@ -116,11 +116,14 @@ jobs:
         for file in *.mk; do
             # Extract variables using sed
             makefile=$(sed -n 's/^[[:space:]]*PRODUCT_NAME[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
-            brand=$(sed -n 's/^[[:space:]]*PRODUCT_BRAND[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
+            #brand=$(sed -n 's/^[[:space:]]*PRODUCT_BRAND[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
             codename=$(sed -n 's/^[[:space:]]*PRODUCT_DEVICE[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
-            if [[ -n "$makefile" && -n "$brand" && -n "$codename" ]]; then
+            manufacturer=$(sed -n 's/^[[:space:]]*PRODUCT_MANUFACTURER[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
+            #if [[ -n "$makefile" && -n "$brand" && -n "$codename" ]]; then
+            if [[ -n "$makefile" && -n "$manufacturer" && -n "$codename" ]]; then
                 DEVICE_MAKEFILE="$makefile"
-                DEVICE_DIRECTORY="device/$brand"
+                #DEVICE_DIRECTORY="device/$brand"
+                DEVICE_DIRECTORY="device/$manufacturer"
                 DEVICE_NAME="$codename"
                 echo "DEVICE_MAKEFILE=${DEVICE_MAKEFILE}" >> $GITHUB_ENV
                 echo "DEVICE_NAME=${DEVICE_NAME}" >> $GITHUB_ENV
