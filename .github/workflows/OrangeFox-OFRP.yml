@@ -56,6 +56,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Validate JSON files
+      run: |
+        for file in $(find . -name "*.json"); do
+          echo "Validating $file"
+          cat $file | jq empty
+        done
+
     - name: Display Inputs
       run: |
         echo "Displaying variables/inputs."
